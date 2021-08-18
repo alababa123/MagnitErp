@@ -95,7 +95,7 @@ async def reg_check(call: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     if callback_data == "reg:True":
         await call.message.answer("Ваша заявка отправлена на рассмотрение оператором, отправьте боту /start для проверки статуса вашего аккаунта.", reply_markup=ReplyKeyboardRemove())
-        cur.execute("INSERT INTO tabEmployer (name ,creation ,owner ,fio ,phone_number ,telegramid ,photo_pass ,photo, status, telegramidforeman, amounttask, amountjob, rate, amounttask_now, ) "
+        cur.execute("INSERT INTO tabEmployer (name ,creation ,owner ,fio ,phone_number ,telegramid ,photo_pass ,photo, status, telegramidforeman, amounttask, amountjob, rate, amounttask_now) "
                     "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                     [data.get("telegramid"), now, "Administrator", data.get("fio"), data.get("phone"),
                      data.get("telegramid"), data.get("path_pas"), data.get("path_photo"), "На рассмотрении", '', 0, 0, 0, 0])

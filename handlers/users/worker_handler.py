@@ -495,31 +495,25 @@ async def photo(message: Message, state=FSMContext):
 async def photo_yes(message: Message, state=FSMContext):
     report = message.photo[-1]
     data = await state.get_data()
-    count = 1
-    k = 0
-    for i in range(1, 6):
-        if(os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) +".jpg")):
-            k += 1
-    if(k == 5):
-        for i in range(1, 6):
-            count = i
-            await report.download(destination="/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg")
-            cur.execute(f"update `tabTemp worker report` set photo{str(i)}=? where task_name=? and telegramid=? and date=?",
-                        ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg",
-                         data.get("task_name"), message.from_user.id, data.get("date")])
-            cur.execute(f"update tabTask set photo{str(i)}=? where name=?",
-                ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg", data.get("task_name")])
-            conn.commit()
-            break
+    print(data.get("count"))
+    if(data.get("count")):
+        count = int(data.get("count"))
     else:
-        for i in range(k + 1, 6):
-            count = i
+        count = 1
+    k = 0
+    for i in range(5, 0, -1):
+        if(os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) +".jpg")):
+            os.rename("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) +".jpg", "/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i + 1) +".jpg")
+    for i in range(1, 6):
+        if(not os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) +".jpg")):
             await report.download(destination="/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg")
             cur.execute(f"update `tabTemp worker report` set photo{str(i)}=? where task_name=? and telegramid=? and date=?",
                         ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg",
                          data.get("task_name"), message.from_user.id, data.get("date")])
             cur.execute(f"update tabTask set photo{str(i)}=? where name=?",
-                ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg", data.get("task_name")])
+                        ["/files/" + data.get("task_name") + str(message.from_user.id) + data.get("date") + "_" + str(
+                            i) + ".jpg",
+                         data.get("task_name")])
             conn.commit()
             break
     free_work = []
@@ -547,10 +541,13 @@ async def photo_yes(message: Message, state=FSMContext):
             inline_keyboard=free_work,
         )
         await message.answer(text="Заявки", reply_markup=foreman_btn)
+        await state.update_data(count=1)
         await worker.section_task.set()
     else:
         await message.reply("Фотография скачана", reply_markup=ReplyKeyboardRemove())
         await message.answer("Вы можете отправить ещё %s фотографий \nНажмите готово, чтобы закончить отчёт" %(5 - count), reply_markup=foreman_btn)
+        count += 1
+        await state.update_data(count=count)
         await worker.reg_report.set()
 
 @dp.callback_query_handler(state=worker.reg_report)
@@ -575,6 +572,7 @@ async def photo_cancel(call: CallbackQuery, state=FSMContext):
             inline_keyboard=free_work,
         )
         await call.message.answer(text="Заявки", reply_markup=foreman_btn)
+        await state.update_data(count=1)
         await worker.section_task.set()
 
 @dp.callback_query_handler(text_contains="serv:Закончить рабочий день", state=worker.job)
