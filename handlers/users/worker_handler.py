@@ -496,17 +496,30 @@ async def photo_yes(message: Message, state=FSMContext):
     report = message.photo[-1]
     data = await state.get_data()
     count = 1
+    k = 0
     for i in range(1, 6):
-        if(not os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + str(message.from_user.id) + data.get("date") + "_" + str(i) +".jpg")):
+        if(os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) +".jpg")):
+            k += 1
+    if(k == 5):
+        for i in range(1, 6):
             count = i
-            await report.download(destination="/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + str(message.from_user.id) + data.get("date") + "_" + str(i) + ".jpg")
+            await report.download(destination="/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg")
             cur.execute(f"update `tabTemp worker report` set photo{str(i)}=? where task_name=? and telegramid=? and date=?",
-                        ["/files/" + data.get("task_name") + str(message.from_user.id) + data.get("date") + "_" + str(i) + ".jpg",
+                        ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg",
                          data.get("task_name"), message.from_user.id, data.get("date")])
             cur.execute(f"update tabTask set photo{str(i)}=? where name=?",
-                ["/files/" + data.get("task_name") + str(message.from_user.id) + data.get("date") + "_" + str(
-                    i) + ".jpg",
-                 data.get("task_name")])
+                ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg", data.get("task_name")])
+            conn.commit()
+            break
+    else:
+        for i in range(k + 1, 6):
+            count = i
+            await report.download(destination="/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg")
+            cur.execute(f"update `tabTemp worker report` set photo{str(i)}=? where task_name=? and telegramid=? and date=?",
+                        ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg",
+                         data.get("task_name"), message.from_user.id, data.get("date")])
+            cur.execute(f"update tabTask set photo{str(i)}=? where name=?",
+                ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg", data.get("task_name")])
             conn.commit()
             break
     free_work = []
