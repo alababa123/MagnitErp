@@ -20,7 +20,7 @@ async def join_session(message: Message):
 async def shift_deadlines(call: CallbackQuery, state=FSMContext):
     conn.commit()
     cur.execute("select name, task from tabshift_deadlines where foreman=? and status=?", [call.from_user.id, "На рассмотрении"])
-    task_name = cur.fetchall
+    task_name = cur.fetchall()
     btn = []
     for i in task_name:
         cur.execute("select subject from tabTask where name=?", [i[1]])
