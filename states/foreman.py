@@ -20,3 +20,5 @@ class foreman(StatesGroup):
     shift = State()
     overdue = State()
     overdue_down = State()
+    action_deadlines = State()
+    conf_deadlines = State()

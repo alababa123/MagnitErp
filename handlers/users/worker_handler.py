@@ -362,19 +362,15 @@ async def dead(message: Message, state=FSMContext):
 async def cause(message: Message, state=FSMContext):
     mes = message.text
     data = await state.get_data()
-    name = str(data.get("task_name")) + str(message.from_user.id) + str(datetime.datetime.now().strftime("%H:%M:%S"))
-    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status) values (?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении'])
+    cur.execute("select telegramidforeman from tabEmployer where telegramid=?", [message.from_user.id])
+    tele_id_foreman = cur.fetchall()
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
     conn.commit()
     cur.execute("select subject, exp_start_date, exp_end_date from tabTask where name=?", [data.get("task_name")])
     task_subj = cur.fetchall()
     cur.execute("select fio, phone_number, telegramidforeman from tabEmployer where name=?", [message.from_user.id])
     foremanid = cur.fetchall()
     await message.answer("Ваш запрос отправлен на подтверждение Инженеру")
-    btn = []
-    btn.append([InlineKeyboardButton(text="Одобрить", callback_data="Shift_Одобрить_%s" %name)])
-    btn.append([InlineKeyboardButton(text="Отклонить", callback_data="Shift_Отклонить_%s" %name)])
-    btn.append([InlineKeyboardButton(text="Отложить", callback_data="Shift_ Отложить_%s"%name)])
-    worker_btn = InlineKeyboardMarkup(inline_keyboard=btn,)
     await bot.send_message(foremanid[0][2], "🕖 Рабочий %s только что попросил увеличить срок на %s дней по задаче '%s'.\n"
                                             "%s ➡️ %s"
                                             "\n➖➖➖➖➖➖➖➖➖➖➖\n"
@@ -382,8 +378,8 @@ async def cause(message: Message, state=FSMContext):
                                             "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                             "Номер телефона рабочего: %s"
                                             "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                            "Пожалуйста завершите рабочий день, чтобы 'Одобрить' 'Отклонить' или 'Отложить' задачу."
-                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n" %(foremanid[0][0], data.get("dealine_time"), task_subj[0][0], task_subj[0][1], task_subj[0][2], mes ,foremanid[0][1]), reply_markup=worker_btn)
+                                            "Пожалуйста перейдите в раздел меню 'Перенос сроков', чтобы 'Одобрить' 'Отклонить' или 'Отложить' задачу."
+                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n" %(foremanid[0][0], data.get("dealine_time"), task_subj[0][0], task_subj[0][1], task_subj[0][2], mes ,foremanid[0][1]))
     task_name = data.get("task_name")
     cur.execute(
         "select subject, description, status, exp_start_date, exp_end_date, expected_time, comment_foreman from tabTask where name='%s'" % data.get("task_name"))
@@ -503,6 +499,9 @@ async def photo_yes(message: Message, state=FSMContext):
     k = 0
     for i in range(5, 0, -1):
         if(os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) +".jpg")):
+            if(i != 5):
+                cur.execute(f"update tabTask set photo{str(i + 1)}=? where name=?", ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i + 1) + ".jpg", data.get("task_name")])
+                conn.commit()
             os.rename("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) +".jpg", "/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i + 1) +".jpg")
     for i in range(1, 6):
         if(not os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) +".jpg")):
@@ -510,10 +509,7 @@ async def photo_yes(message: Message, state=FSMContext):
             cur.execute(f"update `tabTemp worker report` set photo{str(i)}=? where task_name=? and telegramid=? and date=?",
                         ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg",
                          data.get("task_name"), message.from_user.id, data.get("date")])
-            cur.execute(f"update tabTask set photo{str(i)}=? where name=?",
-                        ["/files/" + data.get("task_name") + str(message.from_user.id) + data.get("date") + "_" + str(
-                            i) + ".jpg",
-                         data.get("task_name")])
+            cur.execute(f"update tabTask set photo{str(i)}=? where name=?", ["/files/" + data.get("task_name") + "_" + str(message.from_user.id) + "_" + str(i) + ".jpg", data.get("task_name")])
             conn.commit()
             break
     free_work = []

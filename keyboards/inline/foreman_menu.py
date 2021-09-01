@@ -7,6 +7,10 @@ foreman_menu = InlineKeyboardMarkup(
             )
         ],
         [
+            InlineKeyboardButton(text="Перенос сроков", callback_data=f_m.new(name="Перенос сроков")
+            )
+        ],
+        [
             InlineKeyboardButton(text="Список свободных рабочих", callback_data=f_m.new(name="Список свободных рабочих")
             )
         ],
