@@ -539,11 +539,14 @@ async def free_work(call: CallbackQuery, state=FSMContext):
         foreman_choise_free_btn = InlineKeyboardMarkup(inline_keyboard=free_work,)
         await call.message.delete()
         media = MediaGroup()
+        k = 1
         for i in range(1, 6):
-            if(os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + mas[0] + str(mas[1]) + a[0][3] + "_" + str(i) + ".jpg")):
-                media.attach_photo(open("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + mas[0] + str(mas[1]) + a[0][3] + "_" + str(i) + ".jpg" , 'rb'))
+            if(os.path.exists("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + mas[0] + "_" + str(mas[1]) + "_" + str(i) + ".jpg")):
+                media.attach_photo(open("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + mas[0] + "_" + str(mas[1]) + "_" + str(i) + ".jpg" , 'rb'))
+                k = 2
                 #await bot.send_photo(call.from_user.id, photo=open("/home/erpnext/frappe-bench/sites/site1.local/public/files/" + mas[0] + str(mas[1]) + a[0][3] + "_" + str(i) + ".jpg" , 'rb'))
-        await bot.send_media_group(call.from_user.id, media=media)
+        if(k == 2):
+            await bot.send_media_group(call.from_user.id, media=media)
         await call.message.answer("Название работы: %s\nТекст отчёта: %s\nНомер телефона рабочего: %s\nИмя рабочего: %s" %(a[0][1], a[0][2], b[0][1], b[0][0]), reply_markup=foreman_choise_free_btn)
         await state.update_data(telegramid_report=mas[1], date=a[0][3], task_name=a[0][0])
         await foreman.report_temp_profile.set()

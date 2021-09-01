@@ -1,0 +1,228 @@
+executor.py [LINE:362] #INFO     [2021-08-18 01:51:44,088]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-08-18 01:51:44,218]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-08-18 01:51:44,220]  Start polling.
+executor.py [LINE:362] #INFO     [2021-08-18 12:48:37,107]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-08-18 12:48:37,252]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-08-18 12:48:37,255]  Start polling.
+executor.py [LINE:362] #INFO     [2021-08-18 13:27:15,813]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-08-18 13:27:15,981]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-08-18 13:27:15,984]  Start polling.
+error_handler.py [LINE:58] #ERROR    [2021-08-20 06:10:09,156]  Update: {"update_id": 7474225, "callback_query": {"id": "1947521420307026471", "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "ru"}, "message": {"message_id": 482, "from": {"id": 1991523766, "is_bot": true, "first_name": "TestPilot_bot", "username": "TestPilotMagnitBot"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1629329868, "text": "Планируете ли вы завтра выйти на работу?", "reply_markup": {"inline_keyboard": [[{"text": "Да", "callback_data": "Да"}], [{"text": "Выходной", "callback_data": "Выходной"}], [{"text": "Нет(иное)", "callback_data": "Нет(иное)"}], [{"text": "Назад", "callback_data": "Назад"}]]}}, "chat_instance": "-7901946497586522565", "data": "Да"}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 286, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 637, in decl
+    cur.execute("update tabEmployer set activity=0 where name=?", [call.from_user.id])
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-08-20 06:10:09,342]  Task exception was never retrieved
+future: <Task finished name='Task-7382' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 286, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 637, in decl
+    cur.execute("update tabEmployer set activity=0 where name=?", [call.from_user.id])
+mariadb.InterfaceError: MySQL server has gone away
+error_handler.py [LINE:58] #ERROR    [2021-08-20 06:10:10,646]  Update: {"update_id": 7474226, "message": {"message_id": 484, "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "ru"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1629439810, "text": "Начать рабочий день"}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 57, in join_job
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-08-20 06:10:10,666]  Task exception was never retrieved
+future: <Task finished name='Task-7388' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 57, in join_job
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+error_handler.py [LINE:58] #ERROR    [2021-08-20 06:10:24,639]  Update: {"update_id": 7474229, "message": {"message_id": 488, "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "ru"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1629439824, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-08-20 06:10:24,640]  Task exception was never retrieved
+future: <Task finished name='Task-7398' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+dispatcher.py [LINE:392] #ERROR    [2021-08-22 12:03:26,997]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-08-22 12:03:37,105]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+executor.py [LINE:362] #INFO     [2021-08-31 08:22:57,810]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-08-31 08:22:58,032]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-08-31 08:22:58,035]  Start polling.
+error_handler.py [LINE:58] #ERROR    [2021-09-01 09:50:27,045]  Update: {"update_id": 7474326, "message": {"message_id": 611, "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "en"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1630489826, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-09-01 09:50:27,073]  Task exception was never retrieved
+future: <Task finished name='Task-4601' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+error_handler.py [LINE:58] #ERROR    [2021-09-01 09:50:31,624]  Update: {"update_id": 7474328, "message": {"message_id": 614, "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "en"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1630489831, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-09-01 09:50:31,625]  Task exception was never retrieved
+future: <Task finished name='Task-4608' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
