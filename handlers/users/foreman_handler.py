@@ -44,11 +44,12 @@ async def action_deadlines(call: CallbackQuery, state=FSMContext):
         data = cur.fetchall()
         cur.execute("select subject, exp_start_date, exp_end_date from tabTask where name=?", [data[0][1]])
         task_subj = cur.fetchall()
-        cur.execute("select fio, phone_number where name=?", [data[0][0]])
+        cur.execute("select fio, phone_number from tabEmployer where name=?", [data[0][0]])
         inf_wrkr = cur.fetchall()
         btn.append([InlineKeyboardButton(text="Одобрить", callback_data="Shift_Одобрить_%s" % str)])
         btn.append([InlineKeyboardButton(text="Отклонить", callback_data="Shift_Отклонить_%s" % str)])
         btn.append([InlineKeyboardButton(text="Отложить", callback_data="Shift_Отложить_%s" % str)])
+        btn.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
         foreman_btn = InlineKeyboardMarkup(inline_keyboard=btn, )
         await call.message.edit_text(text="🕖 Рабочий %s попросил увеличить срок на %s дней по задаче '%s'.\n"
                                             "%s ➡️%s"
@@ -66,7 +67,21 @@ async def shift_yes_not(call: CallbackQuery, state=FSMContext):
     mas = call_data.split('_')
     stat = await state.get_state()
     await state.update_data(state=stat)
-    if (mas[1] == "Одобрить"):
+    if (call.data == 'Назад'):
+        conn.commit()
+        cur.execute("select name, task from tabshift_deadlines where foreman=? and status=?",
+                    [call.from_user.id, "На рассмотрении"])
+        task_name = cur.fetchall()
+        btn = []
+        for i in task_name:
+            cur.execute("select subject from tabTask where name=?", [i[1]])
+            task_subject = cur.fetchall()
+            btn.append([InlineKeyboardButton(text=task_subject[0][0], callback_data=i[0])])
+        btn.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
+        foreman_btn = InlineKeyboardMarkup(inline_keyboard=btn, )
+        await call.message.edit_text(text="Перенос сроков", reply_markup=foreman_btn)
+        await foreman.action_deadlines.set()
+    elif (mas[1] == "Одобрить"):
         cur.execute("select days, task, name, worker  from tabshift_deadlines where name=?", [mas[2]])
         day = cur.fetchall()
         cur.execute("select exp_end_date, subject from tabTask where name=?", [day[0][1]])
@@ -77,13 +92,18 @@ async def shift_yes_not(call: CallbackQuery, state=FSMContext):
         cur.execute("update tabshift_deadlines set status='Одобрено' where name=? and status='На рассмотрении'",
                     [day[0][2]])
         conn.commit()
-        await bot.answer_callback_query(call.id, text="Срок изменен", show_alert=True)
+        await bot.answer_callback_query(call.id, text="Срок изменен", show_alert=False)
+        btn = []
+        btn.append([InlineKeyboardButton(text="Понятно", callback_data="Понятно")])
+        bnt_inl = InlineKeyboardMarkup(
+            inline_keyboard=btn,
+        )
         await bot.send_message(day[0][3],
-                               text="🕑 Инженер одобрил вашу просьбу по задаче %s, срок изменен." % exp_end[0][1])
+                               text="🕑 Инженер одобрил вашу просьбу по задаче %s, срок изменен." % exp_end[0][1], reply_markup=bnt_inl)
         conn.commit()
         cur.execute("select name, task from tabshift_deadlines where foreman=? and status=?",
                     [call.from_user.id, "На рассмотрении"])
-        task_name = cur.fetchall
+        task_name = cur.fetchall()
         btn = []
         for i in task_name:
             cur.execute("select subject from tabTask where name=?", [i[1]])
@@ -92,19 +112,22 @@ async def shift_yes_not(call: CallbackQuery, state=FSMContext):
         btn.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
         foreman_btn = InlineKeyboardMarkup(inline_keyboard=btn, )
         await call.message.edit_text(text="Перенос сроков", reply_markup=foreman_btn)
-        await foreman.job.set()
+        await foreman.action_deadlines.set()
     elif (mas[1] == 'Отклонить'):
+        cur.execute("select task from tabshift_deadlines where name=?", [mas[2]])
+        day = cur.fetchall()
+        await state.update_data(task_name=day[0][0])
         await call.message.edit_text("Укажите комментарий")
         await state.update_data(name_shift=mas[2])
         await foreman.shift.set()
     elif (mas[1] == 'Отложить'):
         cur.execute("update tabshift_deadlines set status=? where name=?", ["Отложено", mas[2]])
         conn.commit()
-        await bot.answer_callback_query(call.id, text="Готово!", show_alert=True)
+        await bot.answer_callback_query(call.id, text="Готово!", show_alert=False)
         conn.commit()
         cur.execute("select name, task from tabshift_deadlines where foreman=? and status=?",
                     [call.from_user.id, "На рассмотрении"])
-        task_name = cur.fetchall
+        task_name = cur.fetchall()
         btn = []
         for i in task_name:
             cur.execute("select subject from tabTask where name=?", [i[1]])
@@ -113,39 +136,29 @@ async def shift_yes_not(call: CallbackQuery, state=FSMContext):
         btn.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
         foreman_btn = InlineKeyboardMarkup(inline_keyboard=btn, )
         await call.message.edit_text(text="Перенос сроков", reply_markup=foreman_btn)
-        await foreman.job.set()
-    elif (mas[1] == 'Назад'):
-        conn.commit()
-        cur.execute("select name, task from tabshift_deadlines where foreman=? and status=?",
-                    [call.from_user.id, "На рассмотрении"])
-        task_name = cur.fetchall
-        btn = []
-        for i in task_name:
-            cur.execute("select subject from tabTask where name=?", [i[1]])
-            task_subject = cur.fetchall()
-            btn.append([InlineKeyboardButton(text=task_subject[0][0], callback_data=i[0])])
-        btn.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
-        foreman_btn = InlineKeyboardMarkup(inline_keyboard=btn, )
-        await call.message.edit_text(text="Перенос сроков", reply_markup=foreman_btn)
-        await foreman.job.set()
+        await foreman.action_deadlines.set()
 @dp.message_handler(state=foreman.shift)
 async def cancel(message: Message, state=FSMContext):
     mes = message.text
     data = await state.get_data()
     print(data.get("task_name"))
-    cur.execute("select subject from tabTask where name=?", [data.get("task_name")])
+    cur.execute("select subject, workerid from tabTask where name=?", [data.get("task_name")])
     subj = cur.fetchall()
     cur.execute("update tabshift_deadlines set status='Отклонено' where name=?", [data.get("name_shift")])
     conn.commit()
-    await bot.send_message(data.get("teleid"), "Инженер отклонил вашу просьбу по задаче %s."
+    btn = []
+    btn.append([InlineKeyboardButton(text="Понятно", callback_data="Понятно")])
+    bnt_inl = InlineKeyboardMarkup(
+        inline_keyboard=btn,
+    )
+    await bot.send_message(subj[0][1], "Инженер отклонил вашу просьбу по задаче %s."
                                                "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                               "Комментарий: %s" % (subj[0][0], mes))
-
+                                               "Комментарий: %s" % (subj[0][0], mes), reply_markup=bnt_inl)
     await message.answer("Готово!")
     conn.commit()
     cur.execute("select name, task from tabshift_deadlines where foreman=? and status=?",
                 [message.from_user.id, "На рассмотрении"])
-    task_name = cur.fetchall
+    task_name = cur.fetchall()
     btn = []
     for i in task_name:
         cur.execute("select subject from tabTask where name=?", [i[1]])
@@ -154,12 +167,13 @@ async def cancel(message: Message, state=FSMContext):
     btn.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
     foreman_btn = InlineKeyboardMarkup(inline_keyboard=btn, )
     await message.answer(text="Перенос сроков", reply_markup=foreman_btn)
-    await foreman.job.set()
+    await foreman.action_deadlines.set()
+
 
 @dp.callback_query_handler(text_contains="serv:Список свободных рабочих", state=foreman.job)
 async def free_work(call: CallbackQuery, state=FSMContext):
     conn.commit()
-    cur.execute("select fio, telegramid from tabEmployer where telegramidforeman='' and role='ROLE-0002' and status='Подтвержден'")
+    cur.execute("select fio, telegramid from tabEmployer where telegramidforeman='' and role='Инженер' and status='Подтвержден'")
     a = cur.fetchall()
     free_work = []
     for i in a:
@@ -178,7 +192,7 @@ async def free_work(call: CallbackQuery, state=FSMContext):
         await foreman.job.set()
     else:
         cur.execute("select fio, phone_number, telegramid, comments_foreman, photo, photo_pass, amounttask, amounttask_month, amounttask_cancel, amounttask_now, amounttask_cancel_now"
-                    " from tabEmployer where role='ROLE-0002' and status='Подтвержден' and telegramid=%s" % str)
+                    " from tabEmployer where role='Инженер' and status='Подтвержден' and telegramid=%s" % str)
         a = cur.fetchall()
         free_work = []
         free_work.append([InlineKeyboardButton("Взять в подчинение", callback_data="Взять в подчинение")])
@@ -206,7 +220,7 @@ async def invite_team(call: CallbackQuery, state=FSMContext):
     str = call.data
     telegram = call.from_user.id
     if (str == "Назад"):
-        cur.execute("select fio, telegramid from tabEmployer where telegramidforeman='' and role='ROLE-0002' and status='Подтвержден'")
+        cur.execute("select fio, telegramid from tabEmployer where telegramidforeman='' and role='Инженер' and status='Подтвержден'")
         a = cur.fetchall()
         free_work = []
         for i in a:
@@ -225,8 +239,8 @@ async def invite_team(call: CallbackQuery, state=FSMContext):
         mas_foreman = cur.fetchall()
         cur.execute("update tabEmployer set foreman=?, telegramidforeman=?, object=? where name=?", [mas_foreman[0][0], mas_foreman[0][1], mas_foreman[0][2], data.get("telegramid")])
         conn.commit()
-        await bot.answer_callback_query(call.id, "Рабочий %s был переведён к вам!" %data.get("fio"), show_alert=True)
-        cur.execute("select fio, telegramid from tabEmployer where telegramidforeman='' and role='ROLE-0002' and status='Подтвержден'")
+        await bot.answer_callback_query(call.id, "Рабочий %s был переведён к вам!" %data.get("fio"), show_alert=False)
+        cur.execute("select fio, telegramid from tabEmployer where telegramidforeman='' and role='Инженер' and status='Подтвержден'")
         a = cur.fetchall()
         free_work = []
         for i in a:
@@ -235,7 +249,7 @@ async def invite_team(call: CallbackQuery, state=FSMContext):
         foreman_btn = InlineKeyboardMarkup(
             inline_keyboard=free_work,
         )
-        await call.message.answer(text="Список свободных рабочих", reply_markup=foreman_btn)
+        await call.message.edit_text(text="Список свободных рабочих", reply_markup=foreman_btn)
         await foreman.free_worker.set()
 
 #@dp.callback_query_handler(text_contains="serv:Журнал учёта рабочих", state=foreman.job)
@@ -377,7 +391,7 @@ async def free_work(call: CallbackQuery, state=FSMContext):
 @dp.callback_query_handler(text_contains="serv:Список подчиненных", state=foreman.job)
 async def work(call: CallbackQuery, state=FSMContext):
     conn.commit()
-    cur.execute("select fio, telegramid, activity from tabEmployer where status='Подтвержден' and role='ROLE-0002' and telegramidforeman=%s" %call.from_user.id)
+    cur.execute("select fio, telegramid, activity from tabEmployer where status='Подтвержден' and role='Инженер' and telegramidforeman=%s" %call.from_user.id)
     a = cur.fetchall()
     free_work = []
     for i in a:
@@ -402,7 +416,7 @@ async def free_work(call: CallbackQuery, state=FSMContext):
     else:
         cur.execute(
             "select fio, phone_number, telegramid, comments_foreman, photo, photo_pass, amounttask, amounttask_month, amounttask_cancel, amounttask_now, amounttask_cancel_now"
-            " from tabEmployer where role='ROLE-0002' and status='Подтвержден' and telegramid=%s" % str)
+            " from tabEmployer where role='Инженер' and status='Подтвержден' and telegramid=%s" % str)
         a = cur.fetchall()
         free_work = []
         free_work.append([InlineKeyboardButton(text="Удалить", callback_data="Удалить")])
@@ -432,7 +446,7 @@ async def invite_team(call: CallbackQuery, state=FSMContext):
     if (str == "Назад"):
         conn.commit()
         cur.execute(
-            "select fio, telegramid, activity from tabEmployer where status='Подтвержден' and role='ROLE-0002' and telegramidforeman=%s" % call.from_user.id)
+            "select fio, telegramid, activity from tabEmployer where status='Подтвержден' and role='Инженер' and telegramidforeman=%s" % call.from_user.id)
         a = cur.fetchall()
         free_work = []
         for i in a:
@@ -451,10 +465,10 @@ async def invite_team(call: CallbackQuery, state=FSMContext):
         data = await state.get_data()
         cur.execute("update tabEmployer set telegramidforeman='', foreman='', dateobj='', object='', activity=0  where telegramid=%s" %data.get("telegramid"))
         conn.commit()
-        await bot.answer_callback_query(call.id, text="Рабочий %s был перенесён в архив!" %data.get("fio"), show_alert=True)
+        await bot.answer_callback_query(call.id, text="Рабочий %s был перенесён в архив!" %data.get("fio"), show_alert=False)
         conn.commit()
         cur.execute(
-            "select fio, telegramid, activity from tabEmployer where status='Подтвержден' and role='ROLE-0002' and telegramidforeman=%s" % call.from_user.id)
+            "select fio, telegramid, activity from tabEmployer where status='Подтвержден' and role='Инженер' and telegramidforeman=%s" % call.from_user.id)
         a = cur.fetchall()
         free_work = []
         for i in a:
@@ -504,10 +518,6 @@ async def choise_overdue(call: CallbackQuery, state=FSMContext):
         free_work = []
         data = await state.get_data()
         j = data.get('items')
-        print(len(tasks[j:]))
-        print(j)
-        print(len(tasks[j:])//10)
-        print(len(tasks[j:])//10 > 1)
         if(len(tasks[j:])/10 > 1):
             print(1)
             free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
@@ -574,7 +584,7 @@ async def choise_overdue(call: CallbackQuery, state=FSMContext):
             await foreman.overdue.set()
     else:
         conn.commit()
-        cur.execute("select workerid, subject, date_progress, date_perfomance from tabTask where name=?", [call.data])
+        cur.execute("select workerid, subject, date_progress, date_perfomance, exp_start_date, exp_end_date from tabTask where name=?", [call.data])
         task = cur.fetchall()
         if(task):
             cur.execute("select fio from tabEmployer where name=?", [task[0][0]])
@@ -588,6 +598,20 @@ async def choise_overdue(call: CallbackQuery, state=FSMContext):
                                              "Рабочий просмотрел заявку: %s\n"
                                              "Рабочий начал исполнение: %s\n" %(fio[0][0], task[0][1], task[0][3], task[0][2]), reply_markup=foreman_btn)
                 await foreman.overdue_down.set()
+            else:
+                free_work = []
+                free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
+                foreman_btn = InlineKeyboardMarkup(inline_keyboard=free_work, )
+                await call.message.edit_text("❗ Внимание ❗ \n"
+                                             "❗ Задача %s просрочена ❗\n"
+                                             "❗ Рабочий не указан ❗"
+                                             "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+                                             " Сроки задачи: %s ➡️%s " %(
+                                             task[0][1], task[0][4], task[0][5]), reply_markup=foreman_btn)
+                await foreman.overdue_down.set()
+        else:
+            await call.message.answer("Бот не понял запрос, вы будете возвращены в главное меню.", reply_markup=foreman_menu)
+            await foreman.job.set()
 @dp.callback_query_handler(state=foreman.overdue_down)
 async def back_overdue(call: CallbackQuery, state=FSMContext):
     if(call.data == "Назад"):
@@ -717,7 +741,7 @@ async def invite_team(call: CallbackQuery, state=FSMContext):
         progress = float(100)
         cur.execute("update tabTask set progress=?, status='Completed' where name=? and workerid=?", [float(progress), data.get("task_name"), data.get("telegramid_report")])
         conn.commit()
-        await bot.answer_callback_query(call.id, text="Готово! Отчет занесён в базу!", show_alert=True)
+        await bot.answer_callback_query(call.id, text="Готово! Отчет занесён в базу!", show_alert=False)
         tempa = [data.get("telegramid_report"), call.from_user.id]
         cur.execute("select amounttask, amountjob, amounttask_now from tabEmployer where telegramid=?", [data.get("telegramid_report")])
         amount = cur.fetchall()
@@ -749,8 +773,9 @@ async def invite_team(call: CallbackQuery, state=FSMContext):
         free_work.append([InlineKeyboardButton(text="Отклонить отчёт без комментария", callback_data="Подтвердить")])
         free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
         foreman_btn = InlineKeyboardMarkup(inline_keyboard=free_work, )
-        await call.message.answer("Пожалуйста, напишите причину отклонения отчёта. \nВы можете нажать `Отклонить отчёт без комментария`, чтобы не писать комментарий.\n",
+        mesag = await call.message.answer("Пожалуйста, напишите причину отклонения отчёта. \nВы можете нажать `Отклонить отчёт без комментария`, чтобы не писать комментарий.\n",
             reply_markup=foreman_btn)
+        await state.update_data(cancel_report_bnt=mesag.message_id)
         await foreman.cancel_report.set()
 
 @dp.callback_query_handler(state=foreman.cancel_report)
@@ -786,7 +811,7 @@ async def back_to_profile(call: CallbackQuery, state=FSMContext):
             history = '[' + datetime.datetime.now().strftime("'%Y-%m-%d %H:%M:%S") + ' ' + name[0][0] + '] ' + "Причина не указана"
         cur.execute("update tabTask set status='Cancelled', history=? where workerid=? and name=?", [history, data.get("telegramid_report"), data.get("task_name")])
         conn.commit()
-        await bot.answer_callback_query(call.id, text="Готово! Отчет отклонён!", show_alert=True)
+        await bot.answer_callback_query(call.id, text="Готово! Отчет отклонён!", show_alert=False)
         cur.execute("select name, subject from tabTask where workerid=? and status='Report'",
                     [data.get("telegramid_report")])
         a = cur.fetchall()
@@ -805,6 +830,8 @@ async def back_to_profile(call: CallbackQuery, state=FSMContext):
 async def cancel_report(message: Message, state=FSMContext):
     data = await state.get_data()
     mes = message.text
+    message_id = data.get("cancel_report_bnt")
+    await bot.delete_message(message.from_user.id, message_id)
     temp = [data.get("telegramid_report"), data.get("task_name"), data.get("date")]
     await state.update_data(telegramid_report=data.get("telegramid_report"))
     cur.execute("select comment_foreman from tabTask where workerid=? and name=?", temp)
@@ -845,9 +872,25 @@ async def cancel_report(message: Message, state=FSMContext):
     await message.answer(text="Список отчетов рабочего %s" % b[0][0], reply_markup=foreman_btn)
     await foreman.report_temp_down.set()
 
+
+@dp.callback_query_handler(text_contains="Понятно", state='*')
+async def ok(call: CallbackQuery, state=FSMContext):
+    if(call.data == 'Понятно'):
+        await call.message.delete()
+
 @dp.callback_query_handler(text_contains="serv:Закончить рабочий день", state=foreman.job)
 async def end_session(call: CallbackQuery, state=FSMContext):
     now = datetime.datetime.now()
+    data = await state.get_data()
+    print(data)
+    if (data):
+        for i in range(call.message.message_id - 1, int(data.get("first_mes")) - 1, -1):
+            try:
+                await bot.delete_message(call.from_user.id, i)
+            except:
+                continue
+    else:
+        print("No")
     await call.message.delete()
     await call.message.answer(text="Вы закончили рабочий день", reply_markup=foreman_start_job)
     await state.finish()
