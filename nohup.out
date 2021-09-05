@@ -1,0 +1,884 @@
+executor.py [LINE:362] #INFO     [2021-08-18 01:51:44,088]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-08-18 01:51:44,218]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-08-18 01:51:44,220]  Start polling.
+executor.py [LINE:362] #INFO     [2021-08-18 12:48:37,107]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-08-18 12:48:37,252]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-08-18 12:48:37,255]  Start polling.
+executor.py [LINE:362] #INFO     [2021-08-18 13:27:15,813]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-08-18 13:27:15,981]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-08-18 13:27:15,984]  Start polling.
+error_handler.py [LINE:58] #ERROR    [2021-08-20 06:10:09,156]  Update: {"update_id": 7474225, "callback_query": {"id": "1947521420307026471", "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "ru"}, "message": {"message_id": 482, "from": {"id": 1991523766, "is_bot": true, "first_name": "TestPilot_bot", "username": "TestPilotMagnitBot"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1629329868, "text": "Планируете ли вы завтра выйти на работу?", "reply_markup": {"inline_keyboard": [[{"text": "Да", "callback_data": "Да"}], [{"text": "Выходной", "callback_data": "Выходной"}], [{"text": "Нет(иное)", "callback_data": "Нет(иное)"}], [{"text": "Назад", "callback_data": "Назад"}]]}}, "chat_instance": "-7901946497586522565", "data": "Да"}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 286, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 637, in decl
+    cur.execute("update tabEmployer set activity=0 where name=?", [call.from_user.id])
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-08-20 06:10:09,342]  Task exception was never retrieved
+future: <Task finished name='Task-7382' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 286, in process_update
+    return await self.callback_query_handlers.notify(update.callback_query)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 637, in decl
+    cur.execute("update tabEmployer set activity=0 where name=?", [call.from_user.id])
+mariadb.InterfaceError: MySQL server has gone away
+error_handler.py [LINE:58] #ERROR    [2021-08-20 06:10:10,646]  Update: {"update_id": 7474226, "message": {"message_id": 484, "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "ru"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1629439810, "text": "Начать рабочий день"}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 57, in join_job
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-08-20 06:10:10,666]  Task exception was never retrieved
+future: <Task finished name='Task-7388' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 57, in join_job
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+error_handler.py [LINE:58] #ERROR    [2021-08-20 06:10:24,639]  Update: {"update_id": 7474229, "message": {"message_id": 488, "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "ru"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1629439824, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-08-20 06:10:24,640]  Task exception was never retrieved
+future: <Task finished name='Task-7398' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+dispatcher.py [LINE:392] #ERROR    [2021-08-22 12:03:26,997]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-08-22 12:03:37,105]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+executor.py [LINE:362] #INFO     [2021-08-31 08:22:57,810]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-08-31 08:22:58,032]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-08-31 08:22:58,035]  Start polling.
+error_handler.py [LINE:58] #ERROR    [2021-09-01 09:50:27,045]  Update: {"update_id": 7474326, "message": {"message_id": 611, "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "en"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1630489826, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-09-01 09:50:27,073]  Task exception was never retrieved
+future: <Task finished name='Task-4601' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+error_handler.py [LINE:58] #ERROR    [2021-09-01 09:50:31,624]  Update: {"update_id": 7474328, "message": {"message_id": 614, "from": {"id": 453442665, "is_bot": false, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "language_code": "en"}, "chat": {"id": 453442665, "first_name": "Ivan", "last_name": "Kiselev", "username": "KKINIUSS", "type": "private"}, "date": 1630489831, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+MySQL server has gone away
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+base_events.py [LINE:1707] #ERROR    [2021-09-01 09:50:31,625]  Task exception was never retrieved
+future: <Task finished name='Task-4608' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=InterfaceError('MySQL server has gone away')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/start.py", line 21, in show_menu
+    conn.commit()
+mariadb.InterfaceError: MySQL server has gone away
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:18:45,095]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:18:55,202]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:19:05,314]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:19:15,426]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:19:25,689]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:19:35,793]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:19:45,894]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:19:55,998]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:20:06,109]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:20:16,212]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:20:26,316]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:20:36,422]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:20:46,530]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:20:56,640]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:21:06,747]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:21:16,856]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:21:26,968]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:21:37,071]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:21:47,174]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:21:57,302]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:22:07,412]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:22:17,519]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+dispatcher.py [LINE:392] #ERROR    [2021-09-01 12:22:27,626]  Cause exception while getting updates.
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 383, in start_polling
+    updates = await self.bot.get_updates(
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 97, in get_updates
+    result = await self.request(api.Methods.GET_UPDATES, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 119, in check_result
+    exceptions.ConflictError.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.TerminatedByOtherGetUpdates: Terminated by other getupdates request; make sure that only one bot instance is running
+executor.py [LINE:362] #INFO     [2021-09-01 20:25:45,691]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-09-01 20:25:45,821]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-09-01 20:25:45,824]  Start polling.
+error_handler.py [LINE:58] #ERROR    [2021-09-02 13:56:48,951]  Update: {"update_id": 7474509, "message": {"message_id": 764, "from": {"id": 9431878, "is_bot": false, "first_name": "Дмитрий", "username": "Rainstation", "language_code": "ru"}, "chat": {"id": 9431878, "first_name": "Дмитрий", "username": "Rainstation", "type": "private"}, "date": 1630591008, "text": "так хочу"}} 
+name 'name' is not defined
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 367, in cause
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+NameError: name 'name' is not defined
+base_events.py [LINE:1707] #ERROR    [2021-09-02 13:56:48,953]  Task exception was never retrieved
+future: <Task finished name='Task-3870' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=NameError("name 'name' is not defined")>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 367, in cause
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+NameError: name 'name' is not defined
+error_handler.py [LINE:58] #ERROR    [2021-09-02 13:56:57,758]  Update: {"update_id": 7474510, "message": {"message_id": 765, "from": {"id": 9431878, "is_bot": false, "first_name": "Дмитрий", "username": "Rainstation", "language_code": "ru"}, "chat": {"id": 9431878, "first_name": "Дмитрий", "username": "Rainstation", "type": "private"}, "date": 1630591017, "text": "умер"}} 
+name 'name' is not defined
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 367, in cause
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+NameError: name 'name' is not defined
+base_events.py [LINE:1707] #ERROR    [2021-09-02 13:56:57,759]  Task exception was never retrieved
+future: <Task finished name='Task-3873' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=NameError("name 'name' is not defined")>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 367, in cause
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+NameError: name 'name' is not defined
+error_handler.py [LINE:58] #ERROR    [2021-09-02 13:58:28,204]  Update: {"update_id": 7474515, "message": {"message_id": 766, "from": {"id": 9431878, "is_bot": false, "first_name": "Дмитрий", "username": "Rainstation", "language_code": "ru"}, "chat": {"id": 9431878, "first_name": "Дмитрий", "username": "Rainstation", "type": "private"}, "date": 1630591108, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+name 'name' is not defined
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 367, in cause
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+NameError: name 'name' is not defined
+base_events.py [LINE:1707] #ERROR    [2021-09-02 13:58:28,205]  Task exception was never retrieved
+future: <Task finished name='Task-3894' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=NameError("name 'name' is not defined")>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 367, in cause
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+NameError: name 'name' is not defined
+error_handler.py [LINE:58] #ERROR    [2021-09-02 13:58:32,378]  Update: {"update_id": 7474516, "message": {"message_id": 767, "from": {"id": 9431878, "is_bot": false, "first_name": "Дмитрий", "username": "Rainstation", "language_code": "ru"}, "chat": {"id": 9431878, "first_name": "Дмитрий", "username": "Rainstation", "type": "private"}, "date": 1630591112, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+name 'name' is not defined
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 367, in cause
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+NameError: name 'name' is not defined
+base_events.py [LINE:1707] #ERROR    [2021-09-02 13:58:32,378]  Task exception was never retrieved
+future: <Task finished name='Task-3897' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=NameError("name 'name' is not defined")>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/worker_handler.py", line 367, in cause
+    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+NameError: name 'name' is not defined
+executor.py [LINE:362] #INFO     [2021-09-04 22:57:42,328]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-09-04 22:57:42,466]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-09-04 22:57:42,471]  Start polling.
+executor.py [LINE:362] #INFO     [2021-09-05 08:43:42,984]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-09-05 08:43:43,208]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-09-05 08:43:43,214]  Start polling.
+error_handler.py [LINE:58] #ERROR    [2021-09-05 08:45:38,756]  Update: {"update_id": 7474848, "message": {"message_id": 1083, "from": {"id": 302592665, "is_bot": false, "first_name": "Игорь", "username": "barmem", "language_code": "ru"}, "chat": {"id": 302592665, "first_name": "Игорь", "username": "barmem", "type": "private"}, "date": 1630831538, "text": "y"}} 
+list index out of range
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+base_events.py [LINE:1707] #ERROR    [2021-09-05 08:45:38,761]  Task exception was never retrieved
+future: <Task finished name='Task-38' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+error_handler.py [LINE:58] #ERROR    [2021-09-05 08:45:43,261]  Update: {"update_id": 7474849, "message": {"message_id": 1084, "from": {"id": 302592665, "is_bot": false, "first_name": "Игорь", "username": "barmem", "language_code": "ru"}, "chat": {"id": 302592665, "first_name": "Игорь", "username": "barmem", "type": "private"}, "date": 1630831543, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+list index out of range
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+base_events.py [LINE:1707] #ERROR    [2021-09-05 08:45:43,261]  Task exception was never retrieved
+future: <Task finished name='Task-41' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+error_handler.py [LINE:58] #ERROR    [2021-09-05 08:45:45,061]  Update: {"update_id": 7474850, "message": {"message_id": 1085, "from": {"id": 302592665, "is_bot": false, "first_name": "Игорь", "username": "barmem", "language_code": "ru"}, "chat": {"id": 302592665, "first_name": "Игорь", "username": "barmem", "type": "private"}, "date": 1630831544, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+list index out of range
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+base_events.py [LINE:1707] #ERROR    [2021-09-05 08:45:45,062]  Task exception was never retrieved
+future: <Task finished name='Task-44' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+error_handler.py [LINE:58] #ERROR    [2021-09-05 08:45:45,727]  Update: {"update_id": 7474851, "message": {"message_id": 1086, "from": {"id": 302592665, "is_bot": false, "first_name": "Игорь", "username": "barmem", "language_code": "ru"}, "chat": {"id": 302592665, "first_name": "Игорь", "username": "barmem", "type": "private"}, "date": 1630831545, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+list index out of range
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+base_events.py [LINE:1707] #ERROR    [2021-09-05 08:45:45,728]  Task exception was never retrieved
+future: <Task finished name='Task-47' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+error_handler.py [LINE:58] #ERROR    [2021-09-05 09:13:33,994]  Update: {"update_id": 7474878, "message": {"message_id": 1106, "from": {"id": 302592665, "is_bot": false, "first_name": "Игорь", "username": "barmem", "language_code": "ru"}, "chat": {"id": 302592665, "first_name": "Игорь", "username": "barmem", "type": "private"}, "date": 1630833213, "text": "ytn"}} 
+list index out of range
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+base_events.py [LINE:1707] #ERROR    [2021-09-05 09:13:33,995]  Task exception was never retrieved
+future: <Task finished name='Task-238' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+error_handler.py [LINE:58] #ERROR    [2021-09-05 09:13:45,008]  Update: {"update_id": 7474879, "message": {"message_id": 1107, "from": {"id": 302592665, "is_bot": false, "first_name": "Игорь", "username": "barmem", "language_code": "ru"}, "chat": {"id": 302592665, "first_name": "Игорь", "username": "barmem", "type": "private"}, "date": 1630833224, "text": "/start", "entities": [{"type": "bot_command", "offset": 0, "length": 6}]}} 
+list index out of range
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
+base_events.py [LINE:1707] #ERROR    [2021-09-05 09:13:45,008]  Task exception was never retrieved
+future: <Task finished name='Task-241' coro=<Dispatcher._process_polling_updates() done, defined at /home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py:409> exception=IndexError('list index out of range')>
+Traceback (most recent call last):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 417, in _process_polling_updates
+    for responses in itertools.chain.from_iterable(await self.process_updates(updates, fast)):
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 238, in process_updates
+    return await asyncio.gather(*tasks)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 259, in process_update
+    return await self.message_handlers.notify(update.message)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/dispatcher/handler.py", line 116, in notify
+    response = await handler_obj.handler(*args, **partial_data)
+  File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
+    "Комментарий: %s" % (subj[0][0], mes))
+IndexError: list index out of range
