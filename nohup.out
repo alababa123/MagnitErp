@@ -882,3 +882,37 @@ Traceback (most recent call last):
   File "/home/erpnext/MagnitErp/handlers/users/foreman_handler.py", line 143, in cancel
     "Комментарий: %s" % (subj[0][0], mes))
 IndexError: list index out of range
+executor.py [LINE:362] #INFO     [2021-09-05 14:45:11,815]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-09-05 14:45:11,962]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-09-05 14:45:11,966]  Start polling.
+executor.py [LINE:362] #INFO     [2021-09-07 16:27:23,589]  Bot: TestPilot_bot [@TestPilotMagnitBot]
+notify_admins.py [LINE:14] #ERROR    [2021-09-07 16:27:23,713]  Chat not found
+Traceback (most recent call last):
+  File "/home/erpnext/MagnitErp/utils/notify_admins.py", line 11, in on_startup_notify
+    await dp.bot.send_message(admin, "Бот Запущен")
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/bot.py", line 314, in send_message
+    result = await self.request(api.Methods.SEND_MESSAGE, payload)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/base.py", line 208, in request
+    return await api.make_request(self.session, self.server, self.__token, method, data, files,
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 140, in make_request
+    return check_result(method, response.content_type, response.status, await response.text())
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/bot/api.py", line 115, in check_result
+    exceptions.BadRequest.detect(description)
+  File "/home/erpnext/.local/lib/python3.8/site-packages/aiogram/utils/exceptions.py", line 140, in detect
+    raise err(cls.text or description)
+aiogram.utils.exceptions.ChatNotFound: Chat not found
+dispatcher.py [LINE:360] #INFO     [2021-09-07 16:27:23,716]  Start polling.
