@@ -7,24 +7,37 @@ from aiogram.dispatcher import FSMContext
 from keyboards.default.cancel import cancel
 from keyboards.default.start import start_keyboard
 from data.config import loc_photo_worker, loc_pass_worker
-from database.connect_db import conn, cur
+#from database.connect_db import conn, cur
 from datetime import datetime
 import re
 from utils.format import format_phone
 from loader import bot
 from data.config import example_photo
+import mariadb
+from data.config import user, password, host, port, database
+
 mes = ''
 @dp.message_handler(text="Зарегистрироваться", state=None)
 async def enter_reg(message: Message):
+    conn = mariadb.connect(
+        user=user,
+        password=password,
+        host=host,
+        port=port,
+        database=database
+    )
+    cur = conn.cursor()
     conn.commit()
     mes = message.from_user.id
     cur.execute("select telegramid from tabEmployer where telegramid=%d" %mes)
     a = cur.fetchall()
     if (a):
         await message.answer("Вы уже зарегистрированны, либо ваш аккаунт еще не подтвердили.", reply_markup=start_keyboard)
+        conn.close()
     else:
         await message.answer("При желании вы всегда можете выйти в главное меню, нажав кнопку отмена", reply_markup=cancel)
         await message.answer("Введите ФИО")
+        conn.close()
         await reg.fio.set()
 
 @dp.message_handler(state=reg.fio)
@@ -44,7 +57,6 @@ async def reg_fio(message: Message, state: FSMContext):
 @dp.message_handler(content_types=["contact"], state=reg.phone)
 async def reg_phone(message: Message, state: FSMContext):
     phone = message.contact.phone_number
-    print(phone)
     pattern_abc = r'[а-яА-ЯёЁa-fA-F]+'
     pattern = r'(\+7|8).*?(\d{3}).*?(\d{3}).*?(\d{2}).*?(\d{2})'
     if (phone[0] == '8'):
@@ -90,6 +102,14 @@ async def reg_passport(message, state: FSMContext):
 
 @dp.callback_query_handler(text_contains="reg", state=reg.check)
 async def reg_check(call: CallbackQuery, state: FSMContext):
+    conn = mariadb.connect(
+        user=user,
+        password=password,
+        host=host,
+        port=port,
+        database=database
+    )
+    cur = conn.cursor()
     now = datetime.now()
     callback_data = call.data
     data = await state.get_data()
@@ -100,7 +120,9 @@ async def reg_check(call: CallbackQuery, state: FSMContext):
                     [data.get("telegramid"), now, "Administrator", data.get("fio"), data.get("phone"),
                      data.get("telegramid"), data.get("path_pas"), data.get("path_photo"), "На рассмотрении", '', 0, 0, 0, 0])
         conn.commit()
+        conn.close()
         await state.finish()
     else:
         await call.message.answer("Начнём сначала! Введите ФИО.\n")
+        conn.close()
         await reg.fio.set()
