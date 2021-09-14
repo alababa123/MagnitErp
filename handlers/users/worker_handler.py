@@ -23,11 +23,11 @@ async def claim(message:Message, state=FSMContext):
         await worker.no_job.set()
     else:
         conn.commit()
-        cur.execute("select name, subject from tabTask where workerID=? and progress < 100", [tgid])
+        cur.execute("select name, subject, subdivision from tabTask where workerID=? and progress < 100", [tgid])
         section_task = cur.fetchall()
         free_work = []
         for i in section_task:
-            free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+            free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
         foreman_btn = InlineKeyboardMarkup(
             inline_keyboard=free_work,
         )
@@ -44,11 +44,11 @@ async def claim(message:Message, state=FSMContext):
         await worker.no_job.set()
     else:
         conn.commit()
-        cur.execute("select name, subject from tabTask where workerID=? and progress < 100", [tgid])
+        cur.execute("select name, subject, subdivision from tabTask where workerID=? and progress < 100", [tgid])
         section_task = cur.fetchall()
         free_work = []
         for i in section_task:
-            free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+            free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
         foreman_btn = InlineKeyboardMarkup(
             inline_keyboard=free_work,
         )
@@ -68,7 +68,7 @@ async def zayavki(call: CallbackQuery, state=FSMContext):
         call_data = call.data
         cur.execute("update tabTask set perfomance=1 where name=?", [call_data])
         conn.commit()
-        cur.execute("select subject, description, status, exp_start_date, exp_end_date, expected_time from tabTask where name='%s'" % call_data)
+        cur.execute("select subject, description, status, exp_start_date, exp_end_date, expected_time, subdivision from tabTask where name='%s'" % call_data)
         task_subject = cur.fetchall()
         await state.update_data(task_name=call_data, task_subject=task_subject[0][0])
         free_work = []
@@ -76,7 +76,7 @@ async def zayavki(call: CallbackQuery, state=FSMContext):
         foreman_btn = InlineKeyboardMarkup(
             inline_keyboard=free_work,
         )
-        await call.message.edit_text(text="Задача: %s "
+        await call.message.edit_text(text="Подразделение: %s"
                                           "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                           "Подробности задачи: %s "
                                           "\n➖➖➖➖➖➖➖➖➖➖➖\n"
@@ -84,9 +84,7 @@ async def zayavki(call: CallbackQuery, state=FSMContext):
                                           "Дата окончания: %s"
                                           "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                           "Ожидаемое время выполнения: %s часа(-ов)"
-                                          "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (
-                                          task_subject[0][0], task_subject[0][1], task_subject[0][3],
-                                          task_subject[0][4], task_subject[0][5]), reply_markup=foreman_btn)
+                                          "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (task_subject[0][6], task_subject[0][1], task_subject[0][3], task_subject[0][4], task_subject[0][5]), reply_markup=foreman_btn)
         await worker.zayavki_back.set()
 @dp.callback_query_handler(state=worker.zayavki_back)
 async def back(call: CallbackQuery, state=FSMContext):
@@ -102,11 +100,11 @@ async def back(call: CallbackQuery, state=FSMContext):
         call_data = call.data
         if (call_data == "Назад"):
             conn.commit()
-            cur.execute("select name, subject from tabTask where workerID=? and progress < 100", [call.from_user.id])
+            cur.execute("select name, subject, subdivision from tabTask where workerID=? and progress < 100", [call.from_user.id])
             section_task = cur.fetchall()
             free_work = []
             for i in section_task:
-                free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                free_work.append([InlineKeyboardButton(text=i[2], callback_data=i[0])])
             foreman_btn = InlineKeyboardMarkup(
                 inline_keyboard=free_work,
             )
@@ -174,7 +172,7 @@ async def work(call: CallbackQuery, state=FSMContext):
         await worker.no_job.set()
     else:
         conn.commit()
-        cur.execute("select name, subject, status from tabTask where workerID=? and progress < 100", [call.from_user.id])
+        cur.execute("select name, subject, status, subdivision from tabTask where workerID=? and progress < 100", [call.from_user.id])
         section_task = cur.fetchall()
         free_work = []
         if(len(section_task) > 10):
@@ -182,21 +180,21 @@ async def work(call: CallbackQuery, state=FSMContext):
             for i in section_task[0:10]:
                 j += 1
                 if(i[2]=='Report'):
-                    free_work.append([InlineKeyboardButton(text="⚠ "+ str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="⚠ "+ str(i[3]), callback_data=i[0])])
                 elif(i[2]=='Cancelled'):
-                    free_work.append([InlineKeyboardButton(text="❌ "+ str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="❌ "+ str(i[3]), callback_data=i[0])])
                 else:
-                    free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
             free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
             await state.update_data(items=j, page=j / 10)
         else:
             for i in section_task:
                 if(i[2]=='Report'):
-                    free_work.append([InlineKeyboardButton(text="⚠ "+ str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="⚠ "+ str(i[3]), callback_data=i[0])])
                 elif(i[2]=='Cancelled'):
-                    free_work.append([InlineKeyboardButton(text="❌ "+ str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="❌ "+ str(i[3]), callback_data=i[0])])
                 else:
-                    free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
         free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
         foreman_btn = InlineKeyboardMarkup(inline_keyboard=free_work,)
         await call.message.edit_text(text="Заявки", reply_markup=foreman_btn)
@@ -218,7 +216,7 @@ async def work(call: CallbackQuery, state=FSMContext):
             await call.message.edit_text("Главное меню", reply_markup=worker_menu)
             await worker.job.set()
         elif(call.data == "Следующая страница"):
-            cur.execute("select name, subject, status from tabTask where workerID=? and progress < 100", [call.from_user.id])
+            cur.execute("select name, subject, status, subdivision from tabTask where workerID=? and progress < 100", [call.from_user.id])
             section_task = cur.fetchall()
             free_work = []
             data = await state.get_data()
@@ -227,11 +225,11 @@ async def work(call: CallbackQuery, state=FSMContext):
                 free_work.append([InlineKeyboardButton(text="Прерыдущая страница ⬅", callback_data="Предыдущая страница")])
                 for i in section_task[j:j+10]:
                     if (i[2] == 'Report'):
-                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                     elif (i[2] == 'Cancelled'):
-                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                     else:
-                        free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
                 free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
                 free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
                 j += 10
@@ -246,11 +244,11 @@ async def work(call: CallbackQuery, state=FSMContext):
                 free_work.append([InlineKeyboardButton(text="Прерыдущая страница ⬅", callback_data="Предыдущая страница")])
                 for i in section_task[j:]:
                     if (i[2] == 'Report'):
-                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                     elif (i[2] == 'Cancelled'):
-                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                     else:
-                        free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
                 free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
                 j += 10
                 await state.update_data(items=(j))
@@ -261,7 +259,7 @@ async def work(call: CallbackQuery, state=FSMContext):
                 await call.message.edit_text("Заявки страница: %s из %s" % (j // 10, pages), reply_markup=foreman_btn)
                 await worker.section_task.set()
         elif(call.data == "Предыдущая страница"):
-            cur.execute("select name, subject, status from tabTask where workerID=? and progress < 100",
+            cur.execute("select name, subject, status, subdivision from tabTask where workerID=? and progress < 100",
                         [call.from_user.id])
             section_task = cur.fetchall()
             free_work = []
@@ -272,11 +270,11 @@ async def work(call: CallbackQuery, state=FSMContext):
                 free_work.append([InlineKeyboardButton(text="Прерыдущая страница ⬅", callback_data="Предыдущая страница")])
                 for i in section_task[(j - 10):j]:
                     if (i[2] == 'Report'):
-                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                     elif (i[2] == 'Cancelled'):
-                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                     else:
-                        free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
                 free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
                 free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
                 await state.update_data(items=(j))
@@ -286,11 +284,11 @@ async def work(call: CallbackQuery, state=FSMContext):
             else:
                 for i in section_task[:j]:
                     if (i[2] == 'Report'):
-                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                     elif (i[2] == 'Cancelled'):
-                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                     else:
-                        free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
                 free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
                 free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
                 await state.update_data(items=(j))
@@ -301,7 +299,7 @@ async def work(call: CallbackQuery, state=FSMContext):
                 await call.message.edit_text("Заявки страница: %s из %s" % (j // 10, pages), reply_markup=foreman_btn)
                 await worker.section_task.set()
         else:
-            cur.execute("select subject, description, status, exp_start_date, exp_end_date, expected_time, comment_foreman, date_perfomance from tabTask where name='%s'" %call_data)
+            cur.execute("select subject, description, status, exp_start_date, exp_end_date, expected_time, comment_foreman, date_perfomance, subdivision from tabTask where name='%s'" %call_data)
             task_subject = cur.fetchall()
             if(task_subject[0][7] =='' or task_subject[0][7] == None):
                 cur.execute("update tabTask set perfomance=1, date_perfomance=? where name=?", [datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), call_data])
@@ -312,7 +310,7 @@ async def work(call: CallbackQuery, state=FSMContext):
             if(task_subject[0][2] == "Working" or task_subject[0][2] == 'Report' or task_subject[0][2] == 'Cancelled'):
                 free_work.append([InlineKeyboardButton(text="На исполнении ✅", callback_data="На исполнении ✅")])
                 free_work.append([InlineKeyboardButton(text="Сделать отчет", callback_data="Отчет")])
-                free_work.append([InlineKeyboardButton(text="Сдвинуть сроки", callback_data="Сдвинуть сроки")])
+                #free_work.append([InlineKeyboardButton(text="Сдвинуть сроки", callback_data="Сдвинуть сроки")])
                 free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
             else:
                 free_work.append([InlineKeyboardButton(text="На исполнении", callback_data="На исполнении")])
@@ -321,7 +319,7 @@ async def work(call: CallbackQuery, state=FSMContext):
                 inline_keyboard=free_work,
             )
             if(task_subject[0][6]):
-                await call.message.edit_text(text="Задача: %s "
+                await call.message.edit_text(text="Подразделение: %s"
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                                   "Подробности задачи: %s "
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
@@ -331,9 +329,9 @@ async def work(call: CallbackQuery, state=FSMContext):
                                                   "Ожидаемое время выполнения: %s часа(-ов)"
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                                   "Комментарий по отчету: %s"
-                                                  "\n➖➖➖➖➖➖➖➖➖➖➖\n" %(task_subject[0][0], task_subject[0][1], task_subject[0][3], task_subject[0][4], task_subject[0][5], task_subject[0][6]), reply_markup=foreman_btn)
+                                                  "\n➖➖➖➖➖➖➖➖➖➖➖\n" %(task_subject[0][8], task_subject[0][1], task_subject[0][3], task_subject[0][4], task_subject[0][5], task_subject[0][6]), reply_markup=foreman_btn)
             else:
-                await call.message.edit_text(text="Задача: %s "
+                await call.message.edit_text(text="Подразделение: %s"
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                                   "Подробности задачи: %s "
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
@@ -341,7 +339,7 @@ async def work(call: CallbackQuery, state=FSMContext):
                                                   "Дата окончания: %s"
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                                   "Ожидаемое время выполнения: %s часа(-ов)"
-                                                  "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (task_subject[0][0], task_subject[0][1], task_subject[0][3], task_subject[0][4], task_subject[0][5]), reply_markup=foreman_btn)
+                                                  "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (task_subject[0][8], task_subject[0][1], task_subject[0][3], task_subject[0][4], task_subject[0][5]), reply_markup=foreman_btn)
             await worker.task_profile.set()
 
 @dp.callback_query_handler(state=worker.task_profile)
@@ -362,7 +360,7 @@ async def free_work(call: CallbackQuery, state=FSMContext):
             task_name = data.get("task_name")
             await call.message.delete()
             await call.message.answer("Задача принята к исполнению!")
-            cur.execute("select subject, description, status, exp_start_date, exp_end_date, expected_time, comment_foreman from tabTask where name='%s'" % data.get("task_name"))
+            cur.execute("select subject, description, status, exp_start_date, exp_end_date, expected_time, comment_foreman, subdivision from tabTask where name='%s'" % data.get("task_name"))
             task_subject = cur.fetchall()
             cur.execute("select amounttask_now from tabEmployer where name=?", [call.from_user.id])
             amounttask_now = cur.fetchall()
@@ -373,7 +371,7 @@ async def free_work(call: CallbackQuery, state=FSMContext):
             if (task_subject[0][2] == "Working" or task_subject[0][2] == 'Report' or task_subject[0][2] == 'Cancelled'):
                 free_work.append([InlineKeyboardButton(text="На исполнении ✅", callback_data="На исполнении ✅")])
                 free_work.append([InlineKeyboardButton(text="Сделать отчет", callback_data="Отчет")])
-                free_work.append([InlineKeyboardButton(text="Сдвинуть сроки", callback_data="Сдвинуть сроки")])
+                #free_work.append([InlineKeyboardButton(text="Сдвинуть сроки", callback_data="Сдвинуть сроки")])
                 free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
             else:
                 free_work.append([InlineKeyboardButton(text="На исполнении", callback_data="На исполнении")])
@@ -382,7 +380,7 @@ async def free_work(call: CallbackQuery, state=FSMContext):
                 inline_keyboard=free_work,
             )
             if (task_subject[0][6]):
-                await call.message.answer(text="Задача: %s "
+                await call.message.answer(text=   "Подразделение: %s"
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                                   "Подробности задачи: %s "
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
@@ -392,12 +390,11 @@ async def free_work(call: CallbackQuery, state=FSMContext):
                                                   "Ожидаемое время выполнения: %s часа(-ов)"
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                                   "Комментарий по отчету: %s"
-                                                  "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (
-                                                  task_subject[0][0], task_subject[0][1], task_subject[0][3],
+                                                  "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (task_subject[0][7], task_subject[0][1], task_subject[0][3],
                                                   task_subject[0][4], task_subject[0][5], task_subject[0][6]),
                                              reply_markup=foreman_btn)
             else:
-                await call.message.answer(text="Задача: %s "
+                await call.message.answer(text="Подразделение: %s"
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                                   "Подробности задачи: %s "
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
@@ -405,9 +402,7 @@ async def free_work(call: CallbackQuery, state=FSMContext):
                                                   "Дата окончания: %s"
                                                   "\n➖➖➖➖➖➖➖➖➖➖➖\n"
                                                   "Ожидаемое время выполнения: %s часа(-ов)"
-                                                  "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (
-                                                  task_subject[0][0], task_subject[0][1], task_subject[0][3],
-                                                  task_subject[0][4], task_subject[0][5]), reply_markup=foreman_btn)
+                                                  "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (task_subject[0][7], task_subject[0][1], task_subject[0][3], task_subject[0][4], task_subject[0][5]), reply_markup=foreman_btn)
             await state.update_data(task_name=task_name)
             await worker.task_profile.set()
         elif(call_data == "Отчет"):
@@ -418,7 +413,7 @@ async def free_work(call: CallbackQuery, state=FSMContext):
             await worker.shift_deadlines.set()
         else:
             conn.commit()
-            cur.execute("select name, subject, status from tabTask where workerID=? and progress < 100",
+            cur.execute("select name, subject, status, subdivision from tabTask where workerID=? and progress < 100",
                         [call.from_user.id])
             section_task = cur.fetchall()
             free_work = []
@@ -428,115 +423,115 @@ async def free_work(call: CallbackQuery, state=FSMContext):
                     print(i[2])
                     j += 1
                     if (i[2] == 'Report'):
-                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                     elif (i[2] == 'Cancelled'):
-                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                     else:
-                        free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
                 free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
                 await state.update_data(items=j, page=j / 10)
             else:
                 for i in section_task:
                     if (i[2] == 'Report'):
-                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                     elif (i[2] == 'Cancelled'):
-                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                     else:
-                        free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                        free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
             free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
             foreman_btn = InlineKeyboardMarkup(inline_keyboard=free_work, )
             await call.message.edit_text(text="Заявки", reply_markup=foreman_btn)
             await worker.section_task.set()
 
-@dp.message_handler(state=worker.shift_deadlines)
-async def dead(message: Message, state=FSMContext):
-    mes = message.text
-    pattern_abc = r'[а-яА-ЯёЁa-fA-F+-]'
-    if(re.search(pattern_abc, mes)):
-        await message.answer("Число дней должно быть целым числом! Введите заново.")
-        await worker.shift_deadlines.set()
-    else:
-        if(int(mes) <= 0 ):
-            await message.answer("Число дней должно быть положительным числом! Введите заново.")
-            await worker.shift_deadlines.set()
-        else:
-            await state.update_data(dealine_time=mes)
-            await message.answer("Укажите причину")
-            await worker.shift_deadlines_cause.set()
-@dp.message_handler(state=worker.shift_deadlines_cause)
-async def cause(message: Message, state=FSMContext):
-    mes = message.text
-    data = await state.get_data()
-    name = str(data.get("task_name")) + str(message.from_user.id) + str(datetime.datetime.now().strftime("%H:%M:%S"))
-    cur.execute("select telegramidforeman from tabEmployer where telegramid=?", [message.from_user.id])
-    tele_id_foreman = cur.fetchall()
-    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
-    conn.commit()
-    cur.execute("select subject, exp_start_date, exp_end_date from tabTask where name=?", [data.get("task_name")])
-    task_subj = cur.fetchall()
-    cur.execute("select fio, phone_number, telegramidforeman from tabEmployer where name=?", [message.from_user.id])
-    foremanid = cur.fetchall()
-    await message.answer("Ваш запрос отправлен на подтверждение Инженеру")
-    btn = []
-    btn.append([InlineKeyboardButton(text="Понятно", callback_data="Понятно")])
-    bnt_inl = InlineKeyboardMarkup(
-        inline_keyboard=btn,
-    )
-    await bot.send_message(foremanid[0][2], "🕖 Рабочий %s только что попросил увеличить срок на %s дней по задаче '%s'.\n"
-                                            "%s ➡️ %s"
-                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                            "Причина: %s"
-                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                            "Номер телефона рабочего: %s"
-                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                            "Пожалуйста перейдите в раздел меню 'Перенос сроков', чтобы 'Одобрить' 'Отклонить' или 'Отложить' задачу."
-                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n" %(foremanid[0][0], data.get("dealine_time"), task_subj[0][0], task_subj[0][1], task_subj[0][2], mes ,foremanid[0][1]), reply_markup=bnt_inl)
-
-    task_name = data.get("task_name")
-    cur.execute(
-        "select subject, description, status, exp_start_date, exp_end_date, expected_time, comment_foreman from tabTask where name='%s'" % data.get("task_name"))
-    task_subject = cur.fetchall()
-    free_work = []
-    if (task_subject[0][2] == "Working" or task_subject[0][2] == 'Report' or task_subject[0][2] == 'Cancelled'):
-        free_work.append([InlineKeyboardButton(text="На исполнении ✅", callback_data="На исполнении ✅")])
-        free_work.append([InlineKeyboardButton(text="Сделать отчет", callback_data="Отчет")])
-        free_work.append([InlineKeyboardButton(text="Сдвинуть сроки", callback_data="Сдвинуть сроки")])
-        free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
-    else:
-        free_work.append([InlineKeyboardButton(text="На исполнении", callback_data="На исполнении")])
-        free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
-    foreman_btn = InlineKeyboardMarkup(
-        inline_keyboard=free_work,
-    )
-    if (task_subject[0][6]):
-        await message.answer(text="Задача: %s "
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                       "Подробности задачи: %s "
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                       "Дата начала: %s\n"
-                                       "Дата окончания: %s"
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                       "Ожидаемое время выполнения: %s часа(-ов)"
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                       "Комментарий по отчету: %s"
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (
-                                           task_subject[0][0], task_subject[0][1], task_subject[0][3],
-                                           task_subject[0][4], task_subject[0][5], task_subject[0][6]),
-                                  reply_markup=foreman_btn)
-    else:
-        await message.answer(text="Задача: %s "
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                       "Подробности задачи: %s "
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                       "Дата начала: %s\n"
-                                       "Дата окончания: %s"
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
-                                       "Ожидаемое время выполнения: %s часа(-ов)"
-                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (
-                                           task_subject[0][0], task_subject[0][1], task_subject[0][3],
-                                           task_subject[0][4], task_subject[0][5]), reply_markup=foreman_btn)
-    await state.update_data(task_name=task_name)
-    await worker.task_profile.set()
+#@dp.message_handler(state=worker.shift_deadlines)
+#async def dead(message: Message, state=FSMContext):
+#    mes = message.text
+#    pattern_abc = r'[а-яА-ЯёЁa-fA-F+-]'
+#    if(re.search(pattern_abc, mes)):
+#        await message.answer("Число дней должно быть целым числом! Введите заново.")
+#        await worker.shift_deadlines.set()
+#    else:
+#        if(int(mes) <= 0 ):
+#            await message.answer("Число дней должно быть положительным числом! Введите заново.")
+#            await worker.shift_deadlines.set()
+#        else:
+#            await state.update_data(dealine_time=mes)
+#            await message.answer("Укажите причину")
+#            await worker.shift_deadlines_cause.set()
+#@dp.message_handler(state=worker.shift_deadlines_cause)
+#async def cause(message: Message, state=FSMContext):
+#    mes = message.text
+#    data = await state.get_data()
+#    name = str(data.get("task_name")) + str(message.from_user.id) + str(datetime.datetime.now().strftime("%H:%M:%S"))
+#    cur.execute("select telegramidforeman from tabEmployer where telegramid=?", [message.from_user.id])
+#    tele_id_foreman = cur.fetchall()
+#    cur.execute("insert into tabshift_deadlines (name ,creation ,owner, days, cause, worker, task, status, foreman) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", [name, datetime.datetime.now(), "Administrator", data.get("dealine_time"), mes, message.from_user.id, data.get("task_name"), 'На рассмотрении', tele_id_foreman[0][0]])
+#    conn.commit()
+#    cur.execute("select subject, exp_start_date, exp_end_date from tabTask where name=?", [data.get("task_name")])
+#    task_subj = cur.fetchall()
+#    cur.execute("select fio, phone_number, telegramidforeman from tabEmployer where name=?", [message.from_user.id])
+#    foremanid = cur.fetchall()
+#    await message.answer("Ваш запрос отправлен на подтверждение Инженеру")
+#    btn = []
+#    btn.append([InlineKeyboardButton(text="Понятно", callback_data="Понятно")])
+#    bnt_inl = InlineKeyboardMarkup(
+#        inline_keyboard=btn,
+#    )
+#    await bot.send_message(foremanid[0][2], "🕖 Рабочий %s только что попросил увеличить срок на %s дней по задаче '%s'.\n"
+#                                            "%s ➡️ %s"
+#                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                            "Причина: %s"
+#                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                            "Номер телефона рабочего: %s"
+#                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                            "Пожалуйста перейдите в раздел меню 'Перенос сроков', чтобы 'Одобрить' 'Отклонить' или 'Отложить' задачу."
+#                                            "\n➖➖➖➖➖➖➖➖➖➖➖\n" %(foremanid[0][0], data.get("dealine_time"), task_subj[0][0], task_subj[0][1], task_subj[0][2], mes ,foremanid[0][1]), reply_markup=bnt_inl)
+#
+#    task_name = data.get("task_name")
+#    cur.execute(
+#        "select subject, description, status, exp_start_date, exp_end_date, expected_time, comment_foreman from tabTask where name='%s'" % data.get("task_name"))
+#    task_subject = cur.fetchall()
+#    free_work = []
+#    if (task_subject[0][2] == "Working" or task_subject[0][2] == 'Report' or task_subject[0][2] == 'Cancelled'):
+#        free_work.append([InlineKeyboardButton(text="На исполнении ✅", callback_data="На исполнении ✅")])
+#        free_work.append([InlineKeyboardButton(text="Сделать отчет", callback_data="Отчет")])
+#        free_work.append([InlineKeyboardButton(text="Сдвинуть сроки", callback_data="Сдвинуть сроки")])
+#        free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
+#    else:
+#        free_work.append([InlineKeyboardButton(text="На исполнении", callback_data="На исполнении")])
+#        free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
+#    foreman_btn = InlineKeyboardMarkup(
+#        inline_keyboard=free_work,
+#    )
+#    if (task_subject[0][6]):
+#        await message.answer(text="Задача: %s "
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                       "Подробности задачи: %s "
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                       "Дата начала: %s\n"
+#                                       "Дата окончания: %s"
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                       "Ожидаемое время выполнения: %s часа(-ов)"
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                       "Комментарий по отчету: %s"
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (
+#                                           task_subject[0][0], task_subject[0][1], task_subject[0][3],
+#                                           task_subject[0][4], task_subject[0][5], task_subject[0][6]),
+#                                  reply_markup=foreman_btn)
+#    else:
+#        await message.answer(text="Задача: %s "
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                       "Подробности задачи: %s "
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                       "Дата начала: %s\n"
+#                                       "Дата окончания: %s"
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n"
+#                                       "Ожидаемое время выполнения: %s часа(-ов)"
+#                                       "\n➖➖➖➖➖➖➖➖➖➖➖\n" % (
+#                                           task_subject[0][0], task_subject[0][1], task_subject[0][3],
+#                                           task_subject[0][4], task_subject[0][5]), reply_markup=foreman_btn)
+#    await state.update_data(task_name=task_name)
+#    await worker.task_profile.set()
 @dp.message_handler(state=worker.input_task)
 async def input_task(message: Message, state=FSMContext):
     conn.commit()
@@ -582,7 +577,7 @@ async def input_task(message: Message, state=FSMContext):
 async def photo(message: Message, state=FSMContext):
     conn.commit()
     await message.answer("Готово! Отчет отправлен!", reply_markup=ReplyKeyboardRemove())
-    cur.execute("select name, subject, status from tabTask where workerID=? and progress < 100", [message.from_user.id])
+    cur.execute("select name, subject, status, subdivision from tabTask where workerID=? and progress < 100", [message.from_user.id])
     section_task = cur.fetchall()
     free_work = []
     if (len(section_task) > 10):
@@ -591,21 +586,21 @@ async def photo(message: Message, state=FSMContext):
             print(i[2])
             j += 1
             if (i[2] == 'Report'):
-                free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
             elif (i[2] == 'Cancelled'):
-                free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
             else:
-                free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
         free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
         await state.update_data(items=j, page=j / 10)
     else:
         for i in section_task:
             if (i[2] == 'Report'):
-                free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
             elif (i[2] == 'Cancelled'):
-                free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
             else:
-                free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
     free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
     foreman_btn = InlineKeyboardMarkup(inline_keyboard=free_work, )
     await message.answer(text="Заявки", reply_markup=foreman_btn)
@@ -646,7 +641,7 @@ async def photo_yes(message: Message, state=FSMContext):
     if(count == 5):
         await message.answer("Готово! Отчет отправлен!")
         conn.commit()
-        cur.execute("select name, subject, status from tabTask where workerID=? and progress < 100", [message.from_user.id])
+        cur.execute("select name, subject, status, subdivision from tabTask where workerID=? and progress < 100", [message.from_user.id])
         section_task = cur.fetchall()
         if (len(section_task) > 10):
             j = 0
@@ -654,21 +649,21 @@ async def photo_yes(message: Message, state=FSMContext):
                 print(i[2])
                 j += 1
                 if (i[2] == 'Report'):
-                    free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                 elif (i[2] == 'Cancelled'):
-                    free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                 else:
-                    free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
             free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
             await state.update_data(items=j, page=j / 10)
         else:
             for i in section_task:
                 if (i[2] == 'Report'):
-                    free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                 elif (i[2] == 'Cancelled'):
-                    free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                 else:
-                    free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
         free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
         foreman_btn = InlineKeyboardMarkup(inline_keyboard=free_work, )
         await message.answer(text="Заявки", reply_markup=foreman_btn)
@@ -688,7 +683,7 @@ async def photo_cancel(call: CallbackQuery, state=FSMContext):
         await bot.answer_callback_query(call.id, text="Готово! Отчет отправлен!", show_alert=False)
         await call.message.delete()
         conn.commit()
-        cur.execute("select name, subject, status from tabTask where workerID=? and progress < 100",
+        cur.execute("select name, subject, status, subdivision from tabTask where workerID=? and progress < 100",
                     [call.from_user.id])
         section_task = cur.fetchall()
         free_work = []
@@ -698,21 +693,21 @@ async def photo_cancel(call: CallbackQuery, state=FSMContext):
                 print(i[2])
                 j += 1
                 if (i[2] == 'Report'):
-                    free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                 elif (i[2] == 'Cancelled'):
-                    free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                 else:
-                    free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
             free_work.append([InlineKeyboardButton(text="Следующая страница ➡", callback_data="Следующая страница")])
             await state.update_data(items=j, page=j / 10)
         else:
             for i in section_task:
                 if (i[2] == 'Report'):
-                    free_work.append([InlineKeyboardButton(text="⚠ " + str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="⚠ " + str(i[3]), callback_data=i[0])])
                 elif (i[2] == 'Cancelled'):
-                    free_work.append([InlineKeyboardButton(text="❌ " + str(i[1]), callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text="❌ " + str(i[3]), callback_data=i[0])])
                 else:
-                    free_work.append([InlineKeyboardButton(text=i[1], callback_data=i[0])])
+                    free_work.append([InlineKeyboardButton(text=i[3], callback_data=i[0])])
         free_work.append([InlineKeyboardButton(text="Назад", callback_data="Назад")])
         foreman_btn = InlineKeyboardMarkup(
             inline_keyboard=free_work,
